@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block Content%}
+    <h1>Hello World! from nikhil from template</h1>
+    <p>{{stuff|safe|capitalize}}</p>
+    <h3>These are the languages i know :</h3>
+    {% for language in languages %}
+    <ul>
+        {%if language == "Java"%}
+            <li>{{language}} is my favourite language</li>
+        {%else%}
+            <li>{{language}}</li>
+        {%endif%}
+    </ul>
+    {%endfor%}
+    <h4>These are the book i read :</h4>
+    {% for book in Books %}
+        <ul>
+            <li>{{book}}</li>
+        </ul>   
+    {% endfor %}
+    <h4>{{languages.1}} is my favourite language</h4>
+{% endblock %}
