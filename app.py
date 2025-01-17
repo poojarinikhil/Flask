@@ -4,7 +4,11 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 app = Flask(__name__)
 app.config["DEBUG"] = True 
+app.config["SECRET_KEY"] = "secret"
 
+class Nameform(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    submit = SubmitField('Submit')
 # @app.route('/')
 # def hello_world():
 #     return '<h1>Hello World! from nikhil</h1>'
@@ -40,4 +44,13 @@ def not_found(error):
 @app.errorhandler(500)
 def internal_server(e):
     return render_template("500.html"), 500
+
+@app.route('/name', methods=['GET', 'POST'])
+def name():
+    name = None
+    form = Nameform()
+    if form.validate_on_submit():
+        name = form.name.data
+        form.name.data = None 
+    return render_template("name.html",name=name, form = form)
 
